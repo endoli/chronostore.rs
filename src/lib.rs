@@ -39,30 +39,45 @@
         unsafe_code, unstable_features,
         unused_import_braces, unused_qualifications)]
 
+mod vector_backed;
+
+pub use self::vector_backed::VectorChronology;
+
 /// Direction to search for a value from a timestamp.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Direction {
-    /// Search backwards from the timestamp.
-    Backwards,
+    /// Search backward from the timestamp.
+    Backward,
 
-    /// Search forwards from the timestamp.
-    Forwards,
+    /// Search forward from the timestamp.
+    Forward,
 }
 
 /// A paired timestamp and value.
-pub struct Entry<Value> {
+#[derive(Debug, PartialEq)]
+pub struct Entry<V> {
     /// Timestamp for which the value is valid.
     pub timestamp: u64,
 
-    /// Value to be recorded.
-    pub value: Value,
+    /// V to be recorded.
+    pub value: V,
+}
+
+impl<V> Entry<V> {
+    /// Create a new `Entry`.
+    pub fn new(timestamp: u64, value: V) -> Self {
+        Entry {
+            timestamp: timestamp,
+            value: value,
+        }
+    }
 }
 
 /// A stream of values over time for a single variable.
-pub trait Chronology<Value> {
+pub trait Chronology<V: Copy> {
     /// Find the nearest value in time.
-    fn find_nearest_value(&self, timestamp: u64, direction: Direction) -> &Entry<Value>;
+    fn find_nearest_value(&self, timestamp: u64, direction: Direction) -> Option<Entry<V>>;
 
     /// Record a set of values and their timestamps.
-    fn insert_values(&mut self, values: &[Entry<Value>]);
+    fn insert_values(&mut self, values: &[Entry<V>]);
 }
