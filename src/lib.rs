@@ -39,9 +39,11 @@
         unsafe_code, unstable_features,
         unused_import_braces, unused_qualifications)]
 
-mod vector_backed;
+mod chronology;
+mod entry;
 
-pub use self::vector_backed::VectorChronology;
+pub use self::chronology::Chronology;
+pub use self::entry::Entry;
 
 /// Direction to search for a value from a timestamp.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -53,31 +55,18 @@ pub enum Direction {
     Forward,
 }
 
-/// A paired timestamp and value.
-#[derive(Debug, PartialEq)]
-pub struct Entry<V> {
-    /// Timestamp for which the value is valid.
-    pub timestamp: u64,
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    /// V to be recorded.
-    pub value: V,
-}
-
-impl<V> Entry<V> {
-    /// Create a new `Entry`.
-    pub fn new(timestamp: u64, value: V) -> Self {
-        Entry {
-            timestamp: timestamp,
-            value: value,
-        }
+    #[test]
+    fn basics() {
+        let mut v = Chronology::<f32>::new();
+        v.insert_values(&[Entry::new(5, 2.0),
+                          Entry::new(10, 3.0),
+                          Entry::new(15, 4.0),
+                          Entry::new(20, 5.0)]);
+        assert_eq!(v.find_nearest_value(2, Direction::Forward),
+                   Some(Entry::new(5, 2.0)));
     }
-}
-
-/// A stream of values over time for a single variable.
-pub trait Chronology<V: Copy> {
-    /// Find the nearest value in time.
-    fn find_nearest_value(&self, timestamp: u64, direction: Direction) -> Option<Entry<V>>;
-
-    /// Record a set of values and their timestamps.
-    fn insert_values(&mut self, values: &[Entry<V>]);
 }
