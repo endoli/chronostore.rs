@@ -7,18 +7,11 @@
 //! # Chronostore
 //!
 //! Chronostore is a system for storing time series in memory.
+//! Chronostore is intended for use wihh datasets where a
+//! single time series has 100 million or fewer points.
 //!
-//! What is Chronostore NOT?
-//!
-//! * It does not try to be a distributed system.
-//! * It does not have failover.
-//! * It doesn't run as a separate process out of the box.
-//! * It doesn't even persist data to disk automatically.
-//!
-//! So, what *is* Chronostore good for?
-//!
-//! When you need a smaller scale storage of data that is
-//! timestamped, Chronostore is useful.
+//! Chronostore intends to be fast at inserts, fast at queries,
+//! and memory efficient.
 //!
 //! Once data has been collected from a primary source
 //! such as profiling samplers or counters, program tracing,
@@ -27,12 +20,18 @@
 //! a form that tools can work with for analyzing and
 //! visualizing that data.
 //!
+//! What is Chronostore NOT?
+//!
+//! * It does not try to be a distributed system.
+//! * It does not have failover.
+//! * It doesn't run as a separate process out of the box.
+//! * It doesn't even persist data to disk automatically.
+//!
+//! ## Implementation Status
+//!
 //! The initial implementation is quite naive and is just
 //! here to get something working. Over time, the implementation
 //! will evolve and become significantly more sophisticated.
-//!
-//! Chronostore must be fast at inserts, fast at queries,
-//! and memory efficient.
 
 #![warn(missing_docs)]
 #![deny(trivial_numeric_casts,

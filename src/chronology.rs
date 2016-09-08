@@ -7,6 +7,72 @@
 use super::{Direction, Entry};
 
 /// A stream of values over time for a single variable.
+///
+/// A chronology stores timestamped values where the timestamp
+/// is when the new value was set.
+///
+/// ## Values
+///
+/// Values stored within a `Chronology` must implement the `Copy`
+/// trait. Values are copied when they are stored within the
+/// `Chronology`. For this reason, it is typically advisable to
+/// keep them simple and easy to copy if you're dealing with
+/// large numbers of values and need the highest levels of
+/// performance.
+///
+/// ## Nature of Timestamps
+///
+/// Timestamps are represented as unsigned 64 bit integer values.
+/// The exact interpretation of this value is up to the producer
+/// and consumer of the data.
+///
+/// Typical interpretations might be:
+///
+/// * 1 unit is 1 second.
+/// * 1 unit is 1 millisecond.
+/// * 1 unit is 1 nanosecond.
+/// * 1 unit is 10 nanoseconds.
+/// * 1 unit is 100 picoseconds.
+///
+/// Timestamps may also be interpreted as being an absolute point
+/// in time or a relative point in time, again up to the application
+/// producing and consuming the data.
+///
+/// Some applications may be happy tracking number of seconds since
+/// 1900. Others are using timestamps that correspond to the number
+/// of nanoseconds since the application started or the CPU was
+/// powered on.
+///
+/// ## Inserting Values
+///
+/// Values are inserted in bulk via `Chronology::insert_values`.
+/// `Entry` wraps values along with their timestamp.
+///
+/// ```
+/// use chronostore::{Chronology, Entry};
+///
+/// let mut chrono = Chronology::<f32>::new();
+/// chrono.insert_values(&[Entry::new(0, 0.3),
+///                        Entry::new(5, 0.5)]);
+/// ```
+///
+/// ## Querying Values
+///
+/// A `Chronology` can be queried for the current value at any point in
+/// time. It will find either the last value set prior to the point in
+/// time by searching with `Direction::Backward` or the next value that
+/// has been set by searching with `Direction::Forward`.
+///
+/// ```
+/// use chronostore::{Chronology, Direction, Entry};
+///
+/// let mut chrono = Chronology::<f32>::new();
+/// chrono.insert_values(&[Entry::new(0, 0.3),
+///                        Entry::new(5, 0.5)]);
+///
+/// assert_eq!(chrono.find_nearest_value(4, Direction::Forward),
+///            Some(Entry::new(5, 0.5)));
+/// ```
 pub struct Chronology<V: Copy> {
     timestamps: Vec<u64>,
     values: Vec<V>,
