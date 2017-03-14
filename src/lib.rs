@@ -67,5 +67,8 @@ mod tests {
                           Entry::new(20, 5.0)]);
         assert_eq!(v.find_nearest_value(2, Direction::Forward),
                    Some(Entry::new(5, 2.0)));
+        assert_eq!(v.find_nearest_value(12, Direction::Forward),
+                   Some(Entry::new(15, 4.0)));
+        assert_eq!(v.find_nearest_value(22, Direction::Forward), None);
     }
 }
