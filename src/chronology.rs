@@ -4,7 +4,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use super::{Direction, Entry};
+use super::{Direction, Entry, Summary};
 
 /// A stream of values over time for a single variable.
 ///
@@ -49,9 +49,9 @@ use super::{Direction, Entry};
 /// `Entry` wraps values along with their timestamp.
 ///
 /// ```
-/// use chronostore::{Chronology, Entry};
+/// use chronostore::{Chronology, Entry, NullSummary};
 ///
-/// let mut chrono = Chronology::<f32>::new();
+/// let mut chrono = Chronology::<f32, NullSummary<f32>>::new();
 /// chrono.insert_values(&[Entry::new(0, 0.3),
 ///                        Entry::new(5, 0.5)]);
 /// ```
@@ -64,26 +64,28 @@ use super::{Direction, Entry};
 /// has been set by searching with `Direction::Forward`.
 ///
 /// ```
-/// use chronostore::{Chronology, Direction, Entry};
+/// use chronostore::{Chronology, Direction, Entry, NullSummary};
 ///
-/// let mut chrono = Chronology::<f32>::new();
+/// let mut chrono = Chronology::<f32, NullSummary<f32>>::new();
 /// chrono.insert_values(&[Entry::new(0, 0.3),
 ///                        Entry::new(5, 0.5)]);
 ///
 /// assert_eq!(chrono.find_nearest_value(4, Direction::Forward),
 ///            Some(Entry::new(5, 0.5)));
 /// ```
-pub struct Chronology<V: Copy> {
+pub struct Chronology<V: Copy, S: Default + Summary<V>> {
     timestamps: Vec<u64>,
     values: Vec<V>,
+    summary: S,
 }
 
-impl<V: Copy> Chronology<V> {
+impl<V: Copy, S: Default + Summary<V>> Chronology<V, S> {
     /// Create a new `Chronology`.
     pub fn new() -> Self {
         Chronology {
             timestamps: vec![],
             values: vec![],
+            summary: S::default(),
         }
     }
 
@@ -101,5 +103,6 @@ impl<V: Copy> Chronology<V> {
             self.timestamps.push(v.timestamp);
             self.values.push(v.value);
         }
+        self.summary.batch_update(values);
     }
 }

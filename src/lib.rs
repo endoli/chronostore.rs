@@ -40,9 +40,13 @@
 
 mod chronology;
 mod entry;
+mod null_summary;
+mod summary;
 
 pub use self::chronology::Chronology;
 pub use self::entry::Entry;
+pub use self::null_summary::NullSummary;
+pub use self::summary::Summary;
 
 /// Direction to search for a value from a timestamp.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -60,7 +64,7 @@ mod tests {
 
     #[test]
     fn basics() {
-        let mut v = Chronology::<f32>::new();
+        let mut v = Chronology::<f32, NullSummary<f32>>::new();
         v.insert_values(&[Entry::new(5, 2.0),
                           Entry::new(10, 3.0),
                           Entry::new(15, 4.0),
