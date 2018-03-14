@@ -34,9 +34,8 @@
 //! will evolve and become significantly more sophisticated.
 
 #![warn(missing_docs)]
-#![deny(trivial_numeric_casts,
-        unsafe_code, unstable_features,
-        unused_import_braces, unused_qualifications)]
+#![deny(trivial_numeric_casts, unsafe_code, unstable_features, unused_import_braces,
+        unused_qualifications)]
 
 mod chronology;
 mod entry;
@@ -65,14 +64,20 @@ mod tests {
     #[test]
     fn basics() {
         let mut v = Chronology::<f32, NullSummary<f32>>::new();
-        v.insert_values(&[Entry::new(5, 2.0),
-                          Entry::new(10, 3.0),
-                          Entry::new(15, 4.0),
-                          Entry::new(20, 5.0)]);
-        assert_eq!(v.find_nearest_value(2, Direction::Forward),
-                   Some(Entry::new(5, 2.0)));
-        assert_eq!(v.find_nearest_value(12, Direction::Forward),
-                   Some(Entry::new(15, 4.0)));
+        v.insert_values(&[
+            Entry::new(5, 2.0),
+            Entry::new(10, 3.0),
+            Entry::new(15, 4.0),
+            Entry::new(20, 5.0),
+        ]);
+        assert_eq!(
+            v.find_nearest_value(2, Direction::Forward),
+            Some(Entry::new(5, 2.0))
+        );
+        assert_eq!(
+            v.find_nearest_value(12, Direction::Forward),
+            Some(Entry::new(15, 4.0))
+        );
         assert_eq!(v.find_nearest_value(22, Direction::Forward), None);
     }
 }
