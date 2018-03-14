@@ -73,20 +73,17 @@ use super::{Direction, Entry, Summary};
 /// assert_eq!(chrono.find_nearest_value(4, Direction::Forward),
 ///            Some(Entry::new(5, 0.5)));
 /// ```
-pub struct Chronology<V: Copy, S: Default + Summary<V>> {
+#[derive(Default)]
+pub struct Chronology<V: Copy + Default, S: Default + Summary<V>> {
     timestamps: Vec<u64>,
     values: Vec<V>,
     summary: S,
 }
 
-impl<V: Copy, S: Default + Summary<V>> Chronology<V, S> {
+impl<V: Copy + Default, S: Default + Summary<V>> Chronology<V, S> {
     /// Create a new `Chronology`.
     pub fn new() -> Self {
-        Chronology {
-            timestamps: vec![],
-            values: vec![],
-            summary: S::default(),
-        }
+        Chronology::default()
     }
 
     /// Find the nearest value in time.
