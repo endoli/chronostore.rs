@@ -17,9 +17,6 @@ pub struct Entry<V> {
 impl<V> Entry<V> {
     /// Create a new `Entry`.
     pub fn new(timestamp: u64, value: V) -> Self {
-        Entry {
-            timestamp: timestamp,
-            value: value,
-        }
+        Entry { timestamp, value }
     }
 }
