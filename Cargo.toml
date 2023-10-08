@@ -2,7 +2,7 @@
 name = "chronostore"
 version = "0.0.1"
 authors = ["Bruce Mitchener <bruce.mitchener@gmail.com>"]
-license = "MIT/Apache-2.0"
+license = "MIT OR Apache-2.0"
 readme = "README.md"
 description = "A system for storing time series data in memory."
 keywords = ["time series", "timeseries", "series"]
