@@ -40,11 +40,13 @@
 mod chronology;
 mod entry;
 mod null_summary;
+mod simple_summary;
 mod summary;
 
 pub use self::chronology::Chronology;
 pub use self::entry::Entry;
 pub use self::null_summary::NullSummary;
+pub use self::simple_summary::SimpleSummary;
 pub use self::summary::Summary;
 
 /// Direction to search for a value from a timestamp.
