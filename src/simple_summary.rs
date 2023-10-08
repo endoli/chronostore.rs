@@ -4,7 +4,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use super::{Entry, Summary};
+use crate::{Entry, Summary};
 
 #[allow(missing_docs)]
 #[derive(Default)]

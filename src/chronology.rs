@@ -4,7 +4,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use super::{Direction, Entry, Summary};
+use crate::{Direction, Entry, Summary};
 
 /// A stream of values over time for a single variable.
 ///

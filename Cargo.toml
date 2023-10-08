@@ -9,5 +9,6 @@ keywords = ["time series", "timeseries", "series"]
 documentation = "https://endoli.github.io/chronostore.rs/"
 homepage = "https://github.com/endoli/chronostore.rs"
 repository = "https://github.com/endoli/chronostore.rs"
+edition = "2021"
 
 [dependencies]

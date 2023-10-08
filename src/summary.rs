@@ -4,7 +4,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use super::Entry;
+use crate::Entry;
 
 /// Pluggable means of maintaining summary information about the
 /// data stored in a `Chronology`.
