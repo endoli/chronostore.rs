@@ -1,7 +1,8 @@
 # chronostore
 
-[![Build Status](https://travis-ci.org/endoli/chronostore.rs.svg?branch=master)](https://travis-ci.org/endoli/chronostore.rs)
-[![](http://meritbadge.herokuapp.com/chronostore)](https://crates.io/crates/chronostore)
+[![CI](https://github.com/endoli/chronostore.rs/actions/workflows/ci.yml/badge.svg)](https://github.com/endoli/chronostore.rs/actions/workflows/ci.yml)
+[![](https://img.shields.io/crates/v/chronostore.svg)](https://crates.io/crates/chronostore)
+[![docs.rs](https://img.shields.io/docsrs/chronostore)](https://docs.rs/chronostore)
 
 Chronostore is a system for storing time series in memory.
 
@@ -35,8 +36,7 @@ Dual licensed under the MIT and Apache 2 licenses.
 
 ## Documentation
 
-The API is fully documented with examples:
-[https://endoli.github.io/chronostore.rs/](https://endoli.github.io/chronostore.rs/)
+The API is fully documented with examples: <https://docs.rs/chronostore/>
 
 ## Installation
 
