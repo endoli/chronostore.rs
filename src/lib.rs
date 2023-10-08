@@ -34,8 +34,13 @@
 //! will evolve and become significantly more sophisticated.
 
 #![warn(missing_docs)]
-#![deny(trivial_numeric_casts, unsafe_code, unstable_features, unused_import_braces,
-        unused_qualifications)]
+#![deny(
+    trivial_numeric_casts,
+    unsafe_code,
+    unstable_features,
+    unused_import_braces,
+    unused_qualifications
+)]
 
 mod chronology;
 mod entry;

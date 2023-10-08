@@ -4,8 +4,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use std::marker::PhantomData;
 use super::{Entry, Summary};
+use std::marker::PhantomData;
 
 /// A `Summary` that does nothing.
 #[derive(Default)]
