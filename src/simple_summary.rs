@@ -6,10 +6,12 @@
 
 use crate::{Entry, Summary};
 
-#[allow(missing_docs)]
+/// A [`Summary`] that tracks the minimum and maximum values.
 #[derive(Default)]
 pub struct SimpleSummary<V: Copy + Default + PartialOrd> {
+    /// The minimum value seen by this summary.
     pub min: V,
+    /// The maximum value seen by this summary.
     pub max: V,
 }
 

@@ -33,7 +33,7 @@
 //! here to get something working. Over time, the implementation
 //! will evolve and become significantly more sophisticated.
 
-#![warn(missing_docs)]
+#![warn(clippy::doc_markdown, missing_docs)]
 #![deny(
     trivial_numeric_casts,
     unsafe_code,
@@ -55,6 +55,8 @@ pub use self::simple_summary::SimpleSummary;
 pub use self::summary::Summary;
 
 /// Direction to search for a value from a timestamp.
+///
+/// This is typically used by passing it to [`Chronology::find_nearest_value()`].
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Direction {
     /// Search backward from the timestamp.

@@ -7,7 +7,7 @@
 use crate::{Entry, Summary};
 use std::marker::PhantomData;
 
-/// A `Summary` that does nothing.
+/// A [`Summary`] that does nothing.
 #[derive(Default)]
 pub struct NullSummary<V> {
     phantom: PhantomData<V>,

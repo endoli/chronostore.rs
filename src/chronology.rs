@@ -13,9 +13,9 @@ use crate::{Direction, Entry, Summary};
 ///
 /// ## Values
 ///
-/// Values stored within a `Chronology` must implement the `Copy`
+/// Values stored within a [`Chronology`] must implement the [`Copy`]
 /// trait. Values are copied when they are stored within the
-/// `Chronology`. For this reason, it is typically advisable to
+/// [`Chronology`]. For this reason, it is typically advisable to
 /// keep them simple and easy to copy if you're dealing with
 /// large numbers of values and need the highest levels of
 /// performance.
@@ -45,8 +45,8 @@ use crate::{Direction, Entry, Summary};
 ///
 /// ## Inserting Values
 ///
-/// Values are inserted in bulk via `Chronology::insert_values`.
-/// `Entry` wraps values along with their timestamp.
+/// Values are inserted in bulk via [`Chronology::insert_values`].
+/// [`Entry`] wraps values along with their timestamp.
 ///
 /// ```
 /// use chronostore::{Chronology, Entry, NullSummary};
@@ -58,10 +58,11 @@ use crate::{Direction, Entry, Summary};
 ///
 /// ## Querying Values
 ///
-/// A `Chronology` can be queried for the current value at any point in
-/// time. It will find either the last value set prior to the point in
-/// time by searching with `Direction::Backward` or the next value that
-/// has been set by searching with `Direction::Forward`.
+/// A [`Chronology`] can be [queried](Chronology::find_nearest_value) for
+/// the current value at any point in time. It will find either the last
+/// value set prior to the point in time by searching with
+/// [`Direction::Backward`] or the next value that has been set by
+/// searching with [`Direction::Forward`].
 ///
 /// ```
 /// use chronostore::{Chronology, Direction, Entry, NullSummary};
@@ -87,6 +88,8 @@ impl<V: Copy + Default, S: Default + Summary<V>> Chronology<V, S> {
     }
 
     /// Find the nearest value in time.
+    ///
+    /// The `direction` is not currently used.
     pub fn find_nearest_value(&self, timestamp: u64, _direction: Direction) -> Option<Entry<V>> {
         self.timestamps
             .iter()

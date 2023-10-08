@@ -7,15 +7,15 @@
 use crate::Entry;
 
 /// Pluggable means of maintaining summary information about the
-/// data stored in a `Chronology`.
+/// data stored in a [`Chronology`](crate::Chronology).
 pub trait Summary<V> {
     /// Update the summary with a batch of entries.
     ///
     /// Some summary implementations may be able to operate
     /// more efficiently in batch form rather than updating
-    /// over and over for each individual value.
+    /// over and over for each individual [`Entry`].
     fn batch_update(&mut self, entry: &[Entry<V>]);
 
-    /// Update the summary with a single new entry.
+    /// Update the summary with a single new [`Entry`].
     fn update(&mut self, entry: &Entry<V>);
 }
